@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', shopRoutes);
 app.use('/admin',adminRoutes);
 
-console.log("ceva");
+
 //app.use('/products', adminRoutes);
 
 //if the incoming request cannot find a valid path we use a catch all request
