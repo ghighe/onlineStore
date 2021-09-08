@@ -35,3 +35,5 @@ sequelize.sync()
     .catch(err => {
         console.log(err);
     });
+
+console.log("I have added something to development brench");
