@@ -59,13 +59,20 @@ exports.postProduct = (req, res, next) => {
     const imagePath = req.body.imageUrl;
     const price = +req.body.price;
     const description = req.body.description;
-    const product = new Product(null,title,imagePath,description,price);
-    product.save()
-    .then(() => {
-        res.redirect('/');
-    })
-    .catch(err => console.log(err));
-}
+    Product.create({
+            title: title,
+            price: price,
+            imageUrl: imagePath,
+            description: description
+        })
+        .then(result => {
+            //console.log(result);
+            console.log("Product created!");
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
 
 exports.deleteProduct = (req,res,next) => {
     const id = req.body.prodId;

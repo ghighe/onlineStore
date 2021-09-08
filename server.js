@@ -4,7 +4,7 @@ const path = require('path');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const notFoundRoute = require('./controllers/404');
-const db = require('./util/database');
+const sequelize = require('./util/database');
 
 const app = express();
 
@@ -26,7 +26,12 @@ app.use('/admin',adminRoutes);
 //if the incoming request cannot find a valid path we use a catch all request
 app.use(notFoundRoute.notFoundController);
 
-
-
-
-app.listen(5000);
+//tell sequelize to syncronize every model we have in the application
+sequelize.sync()
+    .then(result => {
+        //console.log(result);
+        app.listen(5000);
+    })
+    .catch(err => {
+        console.log(err);
+    });

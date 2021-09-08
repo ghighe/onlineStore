@@ -16,14 +16,16 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findById(prodId, product => {
+    Product.findById(prodId)
+    .then(([product]) => {
+        console.log(product);
         res.render('shop/product-detail', {
-            pageTitle: product.title,
-            product: product,
+            pageTitle: product[0].title,
+            product: product[0],
             path: '/products'
         })
     })
-
+    .catch(err => {console.log(err)});
 }
 
 exports.getIndex = (req, res, next) => {
