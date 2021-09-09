@@ -2,11 +2,11 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll()
-    .then(([rows,fieldData]) => {
+    Product.findAll()
+    .then(products => {
         res.render('shop/product-list', {
             layout: false,
-            prods: rows,
+            prods: products,
             pageTitle: 'All Products',
             path: '/products'
         });
@@ -16,30 +16,31 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findById(prodId)
-    .then(([product]) => {
-        console.log(product);
-        res.render('shop/product-detail', {
-            pageTitle: product[0].title,
-            product: product[0],
-            path: '/products'
+    Product.findByPk(prodId)
+        .then(product => {
+            //  console.log(product);
+            res.render('shop/product-detail', {
+                pageTitle: product.title,
+                product: product,
+                path: '/products'
+            })
         })
-    })
-    .catch(err => {console.log(err)});
+        .catch(err => {
+            console.log(err)
+        });
 }
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll()
-    .then(([rows,fieldData]) => {
+    Product.findAll()
+    .then(products => {
         res.render('shop/index', {
             layout: false,
-            prods: rows,
+            prods: products,
             pageTitle: 'Shop',
             path: '/'
         });
     })
-    .catch(err => console.log(err));
-
+    .catch(err => {console.log(err)});
 }
 
 exports.getCart = (req, res, next) => {

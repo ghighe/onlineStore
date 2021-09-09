@@ -56,13 +56,13 @@ exports.postEditProduct = (req,res,next) => {
 
 exports.postProduct = (req, res, next) => {
     const title = req.body.title;
-    const imagePath = req.body.imageUrl;
+    const imageUrl = req.body.imageUrl;
     const price = +req.body.price;
     const description = req.body.description;
     Product.create({
             title: title,
             price: price,
-            imageUrl: imagePath,
+            imageUrl: imageUrl,
             description: description
         })
         .then(result => {
