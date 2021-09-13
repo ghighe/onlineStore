@@ -65,10 +65,9 @@ exports.getCart = (req, res, next) => {
                 products: CartProducts
             })
         })
+    }
+)}
 
-    })
-
-}
 
 exports.postCart = (req, res, next) => {
     const prodId = req.body.productId; //now the productId is part of the body request
